@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The architecture Resnext is one of phenomenal architectures with a very good performance in terms of accuracy and computational complexity. This architecture merged the concept of branching-off convolution from the Inception model and residual network together. In other words, we can think Inception + Resnet = ResNext!
+The architecture Resnext is one of phenomenal architectures with a very good performance in terms of accuracy and computational complexity. This architecture merged the concept of branching-off convolution from the Inception model and residual network together but added new dimensions to it. In other words, we can think `Modification(Inception + Resnet)` = ResNext!
 The paper is referred in [1] which was first proposed in 2016.
 
 ## Contributions
@@ -10,14 +10,24 @@ The paper is referred in [1] which was first proposed in 2016.
 - Significant improvement to the performance on the Classification and Object detection tasks compared to Resnet.
 - Significant improvement to the computational complexity.
 
-### Inception vs Resnext
+### Inception vs Inception-Resnet vs Resnext
 
 The famous paper of Googlenet introduced the concept of breaking the Convolutional layers into several different groups.
 ![image_inception_naive](https://huggingface.co/datasets/hf-vision/course-assets/blob/main/inception_naive.png) . The Resnext paper added residual to connection from the previous layer to the next layer after the splitting of the convolutions.
+But also there is a concept of Inception-Resnet. Which adds the residual after the Inception block![2] [inception-resnet]
 
-## Architecture
+*What does Resnext* do ? 
 
-[TBA]
+- Apart from Inception-resnet, it uses same topology over all inception blocks!
+
+[resnext_same_topology]
+
+- Also it reformulates the same architecture as group convolution
+
+[resnext_group_convolution]
+
+The above diagrams are from [1]
+
 
 ## Pytorch Code
 
@@ -28,3 +38,4 @@ The famous paper of Googlenet introduced the concept of breaking the Convolution
 [1] Saining Xie1 Ross Girshick2 Piotr Dollar Zhuowen Tu1 Kaiming He, *Aggregated Residual Transformations for Deep Neural Networks*
 
 [2] Christian Szegedy, Wei Liu, Yangqing Jia, Pierre Sermanet, Scott Reed, Dragomir Anguelov, Dumitru Erhan, Vincent Vanhoucke, Andrew Rabinovich , "Going Deeper with Convolutions". 
+
