@@ -26,8 +26,8 @@ The researchers first discerned that, while architectural design choices are cru
 Inspired by DeiT and Swin Transformers, ConvNext closely adapts their training techniques. Some of the notable changes are:
 - Epochs: Extending the epochs from the original 90 epochs to 300 epochs.
 - Optimizer: Using AdamW optimizer instead of Adam optimizer, which differs in how it handles weight decay.
-- Data augmentation: Using Mixup, Cutmix, RandAugment, and Random Erasing to increase training data.
 - Regularization: Using Stochastic Depth and Label Smoothing as regularization techniques.
+- Mixup (generates a weighted combination of random image pairs), Cutmix (cuts part of an image and replace it with a patch from another image), RandAugment (applies a series of random augmentations such as rotation, translation and shear), and Random Erasing (randomly selects a rectangle region in an image and erases its pixels with random values) to increase training data.
 Modifying these training procedures has improved ResNet-50's accuracy from 76.1% to 78.8%.
 
 
@@ -35,14 +35,14 @@ Modifying these training procedures has improved ResNet-50's accuracy from 76.1%
 Macro design refers to the high-level structural decisions and considerations made in a system or model, such as the arrangement of layers, the distribution of computational load across different stages, and the overall structure.
 Examining Swin Transformers' macro network, the authors have identified two noteworthy design considerations that benefit the performance of ConvNext.
 
-### The stage compute ratio
+### The Stage Compute Ratio
 The stage compute ratio refers to the distribution of computational load among the stages of a neural network model.
 ResNet-50 has four main stages with (3, 4, 6, 3) blocks, which means it has a compute ratio of 3:4:6:3.
 To follow Swin Transformer's compute ratio of 1:1:3:1, the researchers adjusted the number of blocks on each stage of the ResNet from (3, 4, 6, 3) to (3, 3, 9, 3) instead. 
 Changing the stage compute ratio improves the model accuracy from 78.8% to 79.4%.
 
-### Changing stem to Patchify
-Typically, at the start of ResNet's architecture, the input is fed to a stem 7×7 convolution layer with stride 2, followed by a max pool, used to downsample the image by a factor of 4.
+### Changing Stem to Patchify
+Typically, at the start of the ResNet architecture, the input is fed to a stem 7×7 convolution layer with stride 2, followed by a max pooling layer used to downsample the image by a factor of 4.
 However, the authors discovered that substituting the stem with a convolutional layer featuring a 4×4 kernel size and a stride of 4 is more effective, effectively convolving them through non-overlapping 4x4 patches. 
 Patchify serves the same purpose of downsampling the image by a factor of 4 while reducing the number of layers.
 This Patchifying step slightly improves the model accuracy from 79.4% to 79.5%.
